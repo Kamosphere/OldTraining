@@ -1,0 +1,14 @@
+/*
+mysql> select * from employee where salary > 6000 and name like '%n%';*/
+
+/*
+mysql> select company.companyname,employee.name from company,employee,(select name,companyid,max(salary) from employee group by companyid)T where company.companyid=T.companyid and employee.name=T.name;*/
+
+/*
+mysql> select company.companyname,avgsal from company,(select avg(salary) as avgsal,companyid from employee group by companyid)T where company.companyid=T.companyid order by avs desc limit 1;*/
+
+/*包含等于
+mysql> select id,name,age,gender,salary,tt.companyname,tt.avgsal from employee left join (select company.companyid,company.companyname,avgsal from company,(select avg(salary) as avgsal,companyid from employee group by companyid)T where company.companyid=T.companyid)as tt on tt.companyid=employee.companyid where employee.salary>=tt.avgsal;*/
+
+/*不包含等于
+mysql> select id,name,age,gender,salary,tt.companyname,tt.avgsal from employee left join (select company.companyid,company.companyname,avgsal from company,(select avg(salary) as avgsal,companyid from employee group by companyid)T where company.companyid=T.companyid)as tt on tt.companyid=employee.companyid where employee.salary>tt.avgsal;*/
